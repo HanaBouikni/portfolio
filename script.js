@@ -1,222 +1,250 @@
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Intersection Observer for fade-in animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        // Observe all elements with fade-in class
-        document.querySelectorAll('.fade-in').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Active navigation link highlighting
-        window.addEventListener('scroll', () => {
-            const sections = document.querySelectorAll('section[id]');
-            const navLinks = document.querySelectorAll('.nav-links a');
-            
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (scrollY >= (sectionTop - 200)) {
-                    current = section.getAttribute('id');
-                }
-            });
-
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href').substring(1) === current) {
-                    link.classList.add('active');
-                }
-            });
-        });
-
-        // Gallery Modal Functions
-        function openModal(title) {
-            const modal = document.getElementById('gallery-modal');
-            const modalTitle = document.getElementById('modal-title');
-            modalTitle.textContent = title;
-            modal.style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal() {
-            const modal = document.getElementById('gallery-modal');
-            modal.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-
-        // Contact form handling
-        document.querySelector('.contact-form form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Simulate form submission
-            const submitBtn = this.querySelector('.submit-btn');
-            const originalText = submitBtn.textContent;
-            
-            submitBtn.textContent = 'Envoi en cours...';
-            submitBtn.disabled = true;
-            
-            setTimeout(() => {
-                submitBtn.textContent = 'Message envoyé !';
-                submitBtn.style.background = 'linear-gradient(135deg, #28a745 0%, #20b038 100%)';
-                
-                setTimeout(() => {
-                    submitBtn.textContent = originalText;
-                    submitBtn.disabled = false;
-                    submitBtn.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-                    this.reset();
-                }, 2000);
-            }, 1500);
-        });
-
-        // Mobile menu toggle
-        const mobileMenu = document.querySelector('.mobile-menu');
-        const navLinks = document.querySelector('.nav-links');
-
-        mobileMenu.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-
-        // Navbar background on scroll
-        window.addEventListener('scroll', () => {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 100) {
-                navbar.style.background = 'rgba(255, 255, 255, 0.98)';
-                navbar.style.boxShadow = '0 2px 20px rgba(0,0,0,0.15)';
-            } else {
-                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-                navbar.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
-            }
-        });
-
-        // Typing effect for hero subtitle
-        function typeWriter(element, text, speed = 100) {
-            let i = 0;
-            element.innerHTML = '';
-            
-            function type() {
-                if (i < text.length) {
-                    element.innerHTML += text.charAt(i);
-                    i++;
-                    setTimeout(type, speed);
-                }
-            }
-            type();
-        }
-
-        // Initialize typing effect after page load
-        window.addEventListener('load', () => {
-            const subtitle = document.querySelector('.hero .subtitle');
-            const originalText = subtitle.textContent;
-            setTimeout(() => {
-                typeWriter(subtitle, originalText, 50);
-            }, 1000);
-        });
-
-        // Particle effect for hero section (simple version)
-        function createParticle() {
-            const hero = document.querySelector('.hero');
-            const particle = document.createElement('div');
-            
-            particle.style.cssText = `
-                position: absolute;
-                width: 4px;
-                height: 4px;
-                background: rgba(255,255,255,0.5);
-                border-radius: 50%;
-                pointer-events: none;
-                left: ${Math.random() * 100}%;
-                top: ${Math.random() * 100}%;
-                animation: float 6s infinite linear;
-            `;
-            
-            hero.appendChild(particle);
-            
-            setTimeout(() => {
-                particle.remove();
-            }, 6000);
-        }
-
-        // Add CSS for particle animation
-        const particleStyle = document.createElement('style');
-        particleStyle.textContent = `
-            @keyframes float {
-                0% {
-                    transform: translateY(0px) rotate(0deg);
-                    opacity: 1;
-                }
-                100% {
-                    transform: translateY(-100px) rotate(360deg);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(particleStyle);
-
-        // Create particles periodically
-        setInterval(createParticle, 300);
-
-        // Skills animation on scroll
-        function animateSkills() {
-            const skillTags = document.querySelectorAll('.skill-tag');
-            skillTags.forEach((tag, index) => {
-                setTimeout(() => {
-                    tag.style.animation = 'slideInUp 0.5s ease forwards';
-                }, index * 100);
+// Smooth scrolling for navigation links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
             });
         }
+    });
+});
 
-        // Add CSS for skill animation
-        const skillStyle = document.createElement('style');
-        skillStyle.textContent = `
-            @keyframes slideInUp {
-                from {
-                    opacity: 0;
-                    transform: translateY(20px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-            
-            .skill-tag {
-                opacity: 0;
-            }
-            
-            .skill-category.visible .skill-tag {
-                animation: slideInUp 0.5s ease forwards;
-            }
-        `;
-        document.head.appendChild(skillStyle);
+// Intersection Observer for fade-in animations
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
 
-        // Add staggered animation delay to skill tags
-        document.querySelectorAll('.skill-category').forEach(category => {
-            const tags = category.querySelectorAll('.skill-tag');
-            tags.forEach((tag, index) => {
-                tag.style.animationDelay = `${index * 0.1}s`;
-            });
-        });
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, observerOptions);
+
+// Observe all elements with fade-in class
+document.querySelectorAll('.fade-in').forEach(el => {
+    observer.observe(el);
+});
+
+// Active navigation link highlighting
+window.addEventListener('scroll', () => {
+    const navbar = document.querySelector('.navbar');
+    const hero = document.querySelector('.hero');
+    const heroHeight = hero.offsetHeight;
+    
+    if (window.scrollY > heroHeight - 100) {
+        navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+        navbar.style.boxShadow = '0 2px 20px rgba(0,0,0,0.15)';
+    } else {
+        navbar.style.background = 'transparent';
+        navbar.style.boxShadow = 'none';
+    }
+    
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    
+    let current = '';
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (scrollY >= (sectionTop - 200)) {
+            current = section.getAttribute('id');
+        }
+    });
+
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href').substring(1) === current) {
+            link.classList.add('active');
+        }
+    });
+});
+
+// Gallery Modal Functions
+const projectsData = {
+    mockup: {
+        title: "University Student Portal ",
+        image: "mockup1.jpg",
+        description: "The project is a student companion app that centralizes schedules, grades, announcements, and personal info. It includes an AI chatbot for quick university-related answers. ",
+        figmaUrl: "https://www.figma.com/design/nRN3XfEvfb6uGREyRooLm0/pentadesigners?node-id=0-1&t=NU15K6q2PxOJU9P8-1"
+    },
+    neuron: {
+        title: "Neuron website",
+        image: "neuron.jpg",
+        description: "Neuron, a medical practice management platform, needed a web redesign to improve accessibility and workflow for doctors and assistants.",
+        figmaUrl: "https://www.figma.com/design/XvIFgYifVwj8e03BWLUH6h/Challenge-3?node-id=0-1&p=f&t=CztxVjoHSv2wwF7I-0"
+    },
+    book: {
+        title: "Yume hon",
+        image: "book.jpg",
+        description: "This AR/VR app transforms books into immersive experiences with a 3D library, narration, and AI-powered interactions.It includes social features.",
+        figmaUrl: "hhttps://www.figma.com/design/nRN3XfEvfb6uGREyRooLm0/pentadesigners?node-id=183-3212&t=NU15K6q2PxOJU9P8-1"
+    },
+    hanoi: {
+        title: " Hanoi Game",
+        image: "hanoi.jpg",
+        description: "This is a colorful puzzle game inspired by the classic Tower of Hanoi, set in a vibrant world themed around the Indian festival of Holi.",
+        figmaUrl: "https://www.figma.com/design/1wNl0xeUvGImWv3KOtSn0v/HANOI?node-id=0-1&t=GUabQ8SbFPKmx6pQ-1"
+    },
+    assirem: {
+        title: " Assirem app ",
+        image: "assirem.jpg",
+        description: "Assirem is a mobile app that connects volunteers with associations to foster mutual support and social engagement.",
+        figmaUrl: "https://www.figma.com/design/hV5uLEkGe4EdV7dhMxUqDt/ASIREM-FONDATION?node-id=0-1&t=kcOFSPh487uivGXn-1"
+    },
+    vamos: {
+        title: " Vamos website",
+        image: "vamos.jpg",
+        description: "Vamos is a travel website that helps users discover and book top destinations for their next vacation.With a clean and vibrant interface",
+        figmaUrl: "https://www.figma.com/design/wm1LdqI8qX7tJMatKRzhTT/Vamos-site?node-id=0-1&t=DGrbD1idJlJuKPlp-1"
+    },
+    logo10: {
+        title: "Logos collections",
+        image: "logo10.jpg",
+        description: "stylish showcase of modern logo designs featuring various brands.The designs demonstrate a professional branding aesthetics across different industries.",
+        figmaUrl: "https://www.figma.com/file/votre-lien-logo10"
+    },
+    cartevisite: {
+        title: "business card ",
+        image: "cartevisite.jpg",
+        description: "A collection of business card designs for Algerian businesses, showcasing a variety of styles and branding approaches.",
+        figmaUrl: "https://www.figma.com/file/votre-lien-cartevisite"
+    }
+};
+
+function openModal(projectKey) {
+    const project = projectsData[projectKey];
+    const modal = document.getElementById('projectModal');
+    
+    document.getElementById('modal-title').textContent = project.title;
+    document.getElementById('modal-image').src = project.image;
+    document.getElementById('modal-description').textContent = project.description;
+    document.getElementById('figma-link').href = project.figmaUrl;
+    
+    modal.style.display = 'block';
+    setTimeout(() => modal.classList.add('show'), 50);
+}
+
+function closeModal() {
+    const modal = document.getElementById('projectModal');
+    modal.classList.remove('show');
+    setTimeout(() => modal.style.display = 'none', 300);
+}
+
+// Fermer la modal en cliquant à l'extérieur
+window.onclick = function(event) {
+    const modal = document.getElementById('projectModal');
+    if (event.target === modal) {
+        closeModal();
+    }
+}
+
+// Contact form handling
+document.querySelector('.contact-form form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Simulate form submission
+    const submitBtn = this.querySelector('.submit-btn');
+    const originalText = submitBtn.textContent;
+    
+    submitBtn.textContent = 'Envoi en cours...';
+    submitBtn.disabled = true;
+    
+    setTimeout(() => {
+        submitBtn.textContent = 'Message envoyé !';
+        submitBtn.style.background = 'linear-gradient(135deg, #28a745 0%, #20b038 100%)';
+        
+        setTimeout(() => {
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+            submitBtn.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+            this.reset();
+        }, 2000);
+    }, 1500);
+});
+
+// Mobile menu toggle
+const mobileMenu = document.querySelector('.mobile-menu');
+const navLinks = document.querySelector('.nav-links');
+
+mobileMenu.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+});
+
+// Typing effect for hero subtitle
+function typeWriter(element, text, speed = 100) {
+    let i = 0;
+    element.innerHTML = '';
+    
+    function type() {
+        if (i < text.length) {
+            element.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(type, speed);
+        }
+    }
+    type();
+}
+
+// Initialize typing effect after page load
+window.addEventListener('load', () => {
+    const subtitle = document.querySelector('.hero .subtitle');
+    const originalText = subtitle.textContent;
+    setTimeout(() => {
+        typeWriter(subtitle, originalText, 50);
+    }, 1000);
+});
+
+// Skills animation on scroll
+function animateSkills() {
+    const skillTags = document.querySelectorAll('.skill-tag');
+    skillTags.forEach((tag, index) => {
+        setTimeout(() => {
+            tag.style.animation = 'slideInUp 0.5s ease forwards';
+        }, index * 100);
+    });
+}
+
+// Add CSS for skill animation
+const skillStyle = document.createElement('style');
+skillStyle.textContent = `
+    @keyframes slideInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .skill-tag {
+        opacity: 0;
+    }
+    
+    .skill-category.visible .skill-tag {
+        animation: slideInUp 0.5s ease forwards;
+    }
+`;
+document.head.appendChild(skillStyle);
+
+// Add staggered animation delay to skill tags
+document.querySelectorAll('.skill-category').forEach(category => {
+    const tags = category.querySelectorAll('.skill-tag');
+    tags.forEach((tag, index) => {
+        tag.style.animationDelay = `${index * 0.1}s`;
+    });
+});
+// Animation supplémentaire pour les cercles
+document.addEventListener('DOMContentLoaded', () => {
+    const circles = document.querySelectorAll('.circle-layer');
+    circles.forEach((circle, index) => {
+        circle.style.transform = `rotate(${index * 45}deg)`;
+    });
+});

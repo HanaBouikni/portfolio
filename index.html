@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Navigation -->
+      <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">LHB</div>
@@ -27,108 +27,50 @@
         </div>
     </nav>
 
-      <!-- Hero Section -->
+    <!-- Hero Section -->
     <section id="home" class="hero">
-        <div class="hero-background-animation">
-            <div class="floating-shapes">
-                <div class="shape shape-1"></div>
-                <div class="shape shape-2"></div>
-                <div class="shape shape-3"></div>
-                <div class="shape shape-4"></div>
-                <div class="shape shape-5"></div>
-                <div class="shape shape-6"></div>
-            </div>
-        </div>
-        
-        <div class="hero-content">
+        <div class="hero-container">
             <div class="hero-text">
-                
+                <div class="hero-badge">
+                    <span>Cybersécurité & Design UI/UX</span>
+                </div>
                 <h1 class="hero-title">
                     <span class="gradient-text">Bouikni Lydia Hana</span>
                 </h1>
-                <div class="hero-subtitle-container">
-                    <p class="subtitle typing-effect">Cybersécurité • Design UI/UX • Développement</p>
-                </div>
-                <div class="hero-description">
-                    <p>Créatrice d'expériences numériques sécurisées et innovantes, alliant expertise technique et vision artistique pour façonner l'avenir digital.</p>
-                </div>
-            </div>
+                <p class="hero-subtitle">
+                    Créatrice d'expériences numériques sécurisées et innovantes
+                </p>
                 <div class="hero-buttons">
                     <a href="#about" class="cta-button primary">
-                        <span>Découvrir mon parcours</span>
+                        Découvrir mon parcours
                         <i class="fas fa-arrow-right"></i>
                     </a>
                     <a href="#projects" class="cta-button secondary">
-                        <span>Voir mes projets</span>
+                        Voir mes projets
                         <i class="fas fa-external-link-alt"></i>
                     </a>
                 </div>
-                <div class="hero-stats">
-                   
-                  
-                </div>
-           
-            
-            <div class="hero-visual">
-                <div class="hero-card-stack">
-                    <div class="hero-card card-1">
-                        <div class="card-header">
-                            <i class="fas fa-shield-alt"></i>
-                            <span>Cybersécurité</span>
-                        </div>
-                        <div class="card-content">
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 85%;"></div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="hero-card card-2">
-                        <div class="card-header">
-                            <i class="fas fa-palette"></i>
-                            <span>UI/UX Design</span>
-                        </div>
-                        <div class="card-content">
-                            <div class="design-elements">
-                                <div class="color-palette">
-                                    <div class="color-dot" style="background: #667eea;"></div>
-                                    <div class="color-dot" style="background: #764ba2;"></div>
-                                    <div class="color-dot" style="background: #f093fb;"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="hero-card card-3">
-                        <div class="card-header">
-                            <i class="fas fa-code"></i>
-                            <span>Développement</span>
-                        </div>
-                        <div class="card-content">
-                            <div class="code-snippet">
-                                <div class="code-line"></div>
-                                <div class="code-line short"></div>
-                                <div class="code-line"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="hero-decoration">
-                    <div class="decoration-circle circle-1"></div>
-                    <div class="decoration-circle circle-2"></div>
-                    <div class="decoration-line line-1"></div>
-                    <div class="decoration-line line-2"></div>
-                </div>
             </div>
+                <!-- SVG Animation -->
+             <div class="hero-visual">
+             <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+             <dotlottie-player src="https://lottie.host/709fef49-49b6-4a57-825f-a695d6f5fbbc/AjlbkfzucY.lottie" 
+                     background="transparent" 
+                     speed="1" 
+                     style="width: 400px; height: 400px" 
+                     loop 
+                     autoplay>
+             </dotlottie-player>
+            </div>
+
+           
         </div>
-        
         <div class="hero-scroll-indicator">
-            <div class="scroll-dot"></div>
             <div class="scroll-line"></div>
             <span>Scroll</span>
         </div>
     </section>
+   
 
     <!-- About Section -->
     <section id="about" class="section about">
@@ -248,37 +190,58 @@
     </section>
 
     <!-- Gallery Section -->
-    <section id="gallery" class="section">
-        <div class="container">
-            <h2 class="section-title">Galerie Design</h2>
-            <div class="gallery-grid">
-                <div class="gallery-item fade-in" onclick="openModal('UI/UX Mockups')">
-                    <img src="mockup1.jpg" alt="UI/UX Mockups" style="width: 100%; height: 100%; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.10);">
-                </div>
-                <div class="gallery-item fade-in" onclick="openModal('Logo Design')">
-                   <img src="neuron.jpg" alt="Logo Design" style="width: 100%; height: 100%; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.10);" data-modal-image="neuron.jpg" data-modal-title="Logo Design">
-                </div>
-                <div class="gallery-item fade-in" onclick="openModal('Web Interfaces')">
-                    <img src="book.jpg" alt="Logo Design" style="width: 100%; height: 100%; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.10);" data-modal-image="book.jpg" data-modal-title="Logo Design">
-                </div>
-                <div class="gallery-item fade-in" onclick="openModal('Brand Identity')">
-                    <img src="hanoi.jpg" alt="Logo Design" style="width: 100%; height: 100%; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.10);" data-modal-image="hanoi.jpg" data-modal-title="Logo Design">
-                </div>
-                <div class="gallery-item fade-in" onclick="openModal('Illustrations')">
-                    <img src="assirem.jpg" alt="Logo Design" style="width: 100%; height: 100%; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.10);" data-modal-image="assirem.jpg" data-modal-title="Logo Design">
-                </div>
-                <div class="gallery-item fade-in" onclick="openModal('Prototypes')">
-                    <img src="vamos.jpg" alt="Logo Design" style="width: 100%; height: 100%; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.10);" data-modal-image="vamos.jpg" data-modal-title="Logo Design">
-                </div>
-                <div class="gallery-item fade-in" onclick="openModal('Illustrations')">
-                    <img src="logo10.jpg" alt="Logo Design" style="width: 100%; height: 100%; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.10);" data-modal-image="logo.jpg" data-modal-title="Logo Design">
-                </div>
-                <div class="gallery-item fade-in" onclick="openModal('Prototypes')">
-                    <img src="cartevisite.jpg" alt="Logo Design" style="width: 100%; height: 100%; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.10);" data-modal-image="cartevisite.jpg" data-modal-title="Logo Design">
-                </div>
+   <section id="gallery" class="section">
+    <div class="container">
+        <h2 class="section-title">Galerie Design</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item fade-in" onclick="openModal('mockup')">
+                <img src="mockup1.jpg" alt="UI/UX Mockups" style="width: 100%; height: 100%; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.10);">
+            </div>
+            <div class="gallery-item fade-in" onclick="openModal('neuron')">
+               <img src="neuron.jpg" alt="Logo Design" style="width: 100%; height: 100%; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.10);">
+            </div>
+            <div class="gallery-item fade-in" onclick="openModal('book')">
+                <img src="book.jpg" alt="Web Interfaces" style="width: 100%; height: 100%; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.10);">
+            </div>
+            <div class="gallery-item fade-in" onclick="openModal('hanoi')">
+                <img src="hanoi.jpg" alt="Brand Identity" style="width: 100%; height: 100%; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.10);">
+            </div>
+            <div class="gallery-item fade-in" onclick="openModal('assirem')">
+                <img src="assirem.jpg" alt="Illustrations" style="width: 100%; height: 100%; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.10);">
+            </div>
+            <div class="gallery-item fade-in" onclick="openModal('vamos')">
+                <img src="vamos.jpg" alt="Prototypes" style="width: 100%; height: 100%; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.10);">
+            </div>
+            <div class="gallery-item fade-in" onclick="openModal('logo10')">
+                <img src="logo10.jpg" alt="Logo Collection" style="width: 100%; height: 100%; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.10);">
+            </div>
+            <div class="gallery-item fade-in" onclick="openModal('cartevisite')">
+                <img src="cartevisite.jpg" alt="Carte de Visite" style="width: 100%; height: 100%; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.10);">
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
+<!-- Modal -->
+<div id="projectModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div class="modal-header">
+            <h2 id="modal-title" class="modal-title"></h2>
+        </div>
+        <div class="modal-body">
+            <img id="modal-image" class="project-image" src="" alt="">
+            <p id="modal-description" class="project-description"></p>
+            <div class="modal-buttons">
+                <a id="figma-link" class="btn btn-figma" href="#" target="_blank">
+                    <i class="fab fa-figma" style="color: #fff; margin-right: 6px;"></i>
+                    View on Figma
+                </a>
+
+            </div>
+        </div>
+    </div>
+</div>
 
     <!-- Certifications Section -->
     <section id="certifications" class="section certifications">
