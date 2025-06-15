@@ -83,7 +83,7 @@ const projectsData = {
         title: "Yume hon",
         image: "image/book.jpg",
         description: "This AR/VR app transforms books into immersive experiences with a 3D library, narration, and AI-powered interactions.It includes social features.",
-        figmaUrl: "hhttps://www.figma.com/design/nRN3XfEvfb6uGREyRooLm0/pentadesigners?node-id=183-3212&t=NU15K6q2PxOJU9P8-1"
+        figmaUrl: "https://www.figma.com/design/nRN3XfEvfb6uGREyRooLm0/pentadesigners?node-id=183-3212&t=NU15K6q2PxOJU9P8-1"
     },
     hanoi: {
         title: " Hanoi Game",
