@@ -1,18 +1,26 @@
-// Smooth scrolling for navigation links
+// =============================================
+// Smooth Scrolling for Navigation Links
+// =============================================
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
+    anchor.addEventListener('click', function(e) {
+        if (this.getAttribute('href').startsWith('#')) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const target = document.querySelector(targetId);
+            
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
         }
     });
 });
 
-// Intersection Observer for fade-in animations
+// =============================================
+// Intersection Observer for Animations
+// =============================================
 const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
@@ -26,25 +34,31 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-// Observe all elements with fade-in class
 document.querySelectorAll('.fade-in').forEach(el => {
     observer.observe(el);
 });
 
-// Active navigation link highlighting
+// =============================================
+// Navigation Effects
+// =============================================
 window.addEventListener('scroll', () => {
+    // Navbar background change
     const navbar = document.querySelector('.navbar');
     const hero = document.querySelector('.hero');
-    const heroHeight = hero.offsetHeight;
     
-    if (window.scrollY > heroHeight - 100) {
-        navbar.style.background = 'rgba(255, 255, 255, 0.98)';
-        navbar.style.boxShadow = '0 2px 20px rgba(0,0,0,0.15)';
-    } else {
-        navbar.style.background = 'transparent';
-        navbar.style.boxShadow = 'none';
+    if (navbar && hero) {
+        const heroHeight = hero.offsetHeight;
+        
+        if (window.scrollY > heroHeight - 100) {
+            navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+            navbar.style.boxShadow = '0 2px 20px rgba(0,0,0,0.15)';
+        } else {
+            navbar.style.background = 'transparent';
+            navbar.style.boxShadow = 'none';
+        }
     }
     
+    // Active link highlighting
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-links a');
     
@@ -59,18 +73,53 @@ window.addEventListener('scroll', () => {
 
     navLinks.forEach(link => {
         link.classList.remove('active');
-        if (link.getAttribute('href').substring(1) === current) {
+        const href = link.getAttribute('href');
+        if (href && href.substring(1) === current) {
             link.classList.add('active');
         }
     });
 });
 
-// Gallery Modal Functions
+// =============================================
+// Mobile Menu Functionality
+// =============================================
+const initMobileMenu = () => {
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const navLinks = document.querySelector('.nav-links');
+    const body = document.body;
+
+    if (mobileMenu && navLinks) {
+        mobileMenu.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            navLinks.classList.toggle('active');
+            
+            // Empêche le défilement quand le menu est ouvert
+            if (navLinks.classList.contains('active')) {
+                body.style.overflow = 'hidden';
+            } else {
+                body.style.overflow = '';
+            }
+        });
+
+        // Ferme le menu quand on clique sur un lien
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                navLinks.classList.remove('active');
+                body.style.overflow = '';
+            });
+        });
+    }
+};
+
+// =============================================
+// Project Modal Functionality
+// =============================================
 const projectsData = {
     mockup: {
-        title: "University Student Portal ",
+        title: "University Student Portal",
         image: "image/mockup1.jpg",
-        description: "The project is a student companion app that centralizes schedules, grades, announcements, and personal info. It includes an AI chatbot for quick university-related answers. ",
+        description: "The project is a student companion app that centralizes schedules, grades, announcements, and personal info. It includes an AI chatbot for quick university-related answers.",
         figmaUrl: "https://www.figma.com/design/nRN3XfEvfb6uGREyRooLm0/pentadesigners?node-id=0-1&t=NU15K6q2PxOJU9P8-1"
     },
     neuron: {
@@ -86,19 +135,19 @@ const projectsData = {
         figmaUrl: "https://www.figma.com/design/nRN3XfEvfb6uGREyRooLm0/pentadesigners?node-id=183-3212&t=NU15K6q2PxOJU9P8-1"
     },
     hanoi: {
-        title: " Hanoi Game",
+        title: "Hanoi Game",
         image: "image/hanoi.jpg",
         description: "This is a colorful puzzle game inspired by the classic Tower of Hanoi, set in a vibrant world themed around the Indian festival of Holi.",
         figmaUrl: "https://www.figma.com/design/1wNl0xeUvGImWv3KOtSn0v/HANOI?node-id=0-1&t=GUabQ8SbFPKmx6pQ-1"
     },
     assirem: {
-        title: " Assirem app ",
+        title: "Assirem app",
         image: "image/assirem.jpg",
         description: "Assirem is a mobile app that connects volunteers with associations to foster mutual support and social engagement.",
         figmaUrl: "https://www.figma.com/design/hV5uLEkGe4EdV7dhMxUqDt/ASIREM-FONDATION?node-id=0-1&t=kcOFSPh487uivGXn-1"
     },
     vamos: {
-        title: " Vamos website",
+        title: "Vamos website",
         image: "image/vamos.jpg",
         description: "Vamos is a travel website that helps users discover and book top destinations for their next vacation.With a clean and vibrant interface",
         figmaUrl: "https://www.figma.com/design/wm1LdqI8qX7tJMatKRzhTT/Vamos-site?node-id=0-1&t=DGrbD1idJlJuKPlp-1"
@@ -107,19 +156,21 @@ const projectsData = {
         title: "Logos collections",
         image: "image/logo10.jpg",
         description: "stylish showcase of modern logo designs featuring various brands.The designs demonstrate a professional branding aesthetics across different industries.",
-        figmaUrl: "https://www.figma.com/file/votre-lien-logo10"
+        figmaUrl: "#"
     },
     cartevisite: {
-        title: "business card ",
+        title: "business card",
         image: "image/cartevisite.jpg",
         description: "A collection of business card designs for Algerian businesses, showcasing a variety of styles and branding approaches.",
-        figmaUrl: "https://www.figma.com/file/votre-lien-cartevisite"
+        figmaUrl: "#"
     }
 };
 
-function openModal(projectKey) {
+const openModal = (projectKey) => {
     const project = projectsData[projectKey];
     const modal = document.getElementById('projectModal');
+    
+    if (!modal) return;
     
     document.getElementById('modal-title').textContent = project.title;
     document.getElementById('modal-image').src = project.image;
@@ -128,15 +179,19 @@ function openModal(projectKey) {
     
     modal.style.display = 'block';
     setTimeout(() => modal.classList.add('show'), 50);
-}
+};
 
-function closeModal() {
+const closeModal = () => {
     const modal = document.getElementById('projectModal');
+    if (!modal) return;
+    
     modal.classList.remove('show');
     setTimeout(() => modal.style.display = 'none', 300);
-}
+};
 
-// Certifications Modal Data
+// =============================================
+// Certifications Modal Functionality
+// =============================================
 const certsData = {
     design: {
         title: "Graphic Design Certification",
@@ -165,13 +220,17 @@ const certsData = {
     }
 };
 
-function openCertModal(certKey) {
+const openCertModal = (certKey) => {
     const cert = certsData[certKey];
     const modal = document.getElementById('certModal');
+    
+    if (!modal) return;
     
     document.getElementById('cert-modal-title').textContent = cert.title;
     
     const modalBody = document.querySelector('#certModal .modal-body');
+    if (!modalBody) return;
+    
     modalBody.innerHTML = `
         <div class="cert-images-container"></div>
         ${cert.images.length > 1 ? `
@@ -183,7 +242,9 @@ function openCertModal(certKey) {
     const imagesContainer = modalBody.querySelector('.cert-images-container');
     let currentIndex = 0;
     
-    function showImage(index) {
+    const showImage = (index) => {
+        if (!imagesContainer) return;
+        
         imagesContainer.innerHTML = '';
         const imgContainer = document.createElement('div');
         imgContainer.className = 'cert-image-container';
@@ -195,40 +256,47 @@ function openCertModal(certKey) {
         
         imgContainer.appendChild(img);
         imagesContainer.appendChild(imgContainer);
-    }
+    };
     
-    // Show first image
     showImage(0);
     
-    // Navigation handlers
     if (cert.images.length > 1) {
-        document.querySelector('.cert-prev').addEventListener('click', (e) => {
-            e.stopPropagation();
-            currentIndex = (currentIndex - 1 + cert.images.length) % cert.images.length;
-            showImage(currentIndex);
-        });
+        const prevBtn = modalBody.querySelector('.cert-prev');
+        const nextBtn = modalBody.querySelector('.cert-next');
         
-        document.querySelector('.cert-next').addEventListener('click', (e) => {
-            e.stopPropagation();
-            currentIndex = (currentIndex + 1) % cert.images.length;
-            showImage(currentIndex);
-        });
+        if (prevBtn && nextBtn) {
+            prevBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                currentIndex = (currentIndex - 1 + cert.images.length) % cert.images.length;
+                showImage(currentIndex);
+            });
+            
+            nextBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                currentIndex = (currentIndex + 1) % cert.images.length;
+                showImage(currentIndex);
+            });
+        }
     }
     
     modal.style.display = 'block';
     setTimeout(() => modal.classList.add('show'), 50);
-}
+};
 
-function closeCertModal() {
+const closeCertModal = () => {
     const modal = document.getElementById('certModal');
+    if (!modal) return;
+    
     modal.classList.remove('show');
     setTimeout(() => modal.style.display = 'none', 300);
-}
+};
 
-// Fermer la modal en cliquant à l'extérieur
+// =============================================
+// Modal Close Handlers
+// =============================================
 window.onclick = function(event) {
-    const modal = document.getElementById('certModal');
-    if (event.target === modal) {
+    const certModal = document.getElementById('certModal');
+    if (event.target === certModal) {
         closeCertModal();
     }
     
@@ -236,80 +304,80 @@ window.onclick = function(event) {
     if (event.target === projectModal) {
         closeModal();
     }
-}
-// Fermer la modal en cliquant à l'extérieur
-window.onclick = function(event) {
-    const modal = document.getElementById('projectModal');
-    if (event.target === modal) {
-        closeModal();
-    }
-}
+};
 
-// Contact form handling
-document.querySelector('.contact-form form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    // Simulate form submission
-    const submitBtn = this.querySelector('.submit-btn');
-    const originalText = submitBtn.textContent;
-    
-    submitBtn.textContent = 'Envoi en cours...';
-    submitBtn.disabled = true;
-    
-    setTimeout(() => {
-        submitBtn.textContent = 'Message envoyé !';
-        submitBtn.style.background = 'linear-gradient(135deg, #28a745 0%, #20b038 100%)';
+// =============================================
+// Contact Form Handling
+// =============================================
+const contactForm = document.querySelector('.contact-form form');
+if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const submitBtn = this.querySelector('.submit-btn');
+        if (!submitBtn) return;
+        
+        const originalText = submitBtn.textContent;
+        
+        submitBtn.textContent = 'Envoi en cours...';
+        submitBtn.disabled = true;
         
         setTimeout(() => {
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
-            submitBtn.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-            this.reset();
-        }, 2000);
-    }, 1500);
+            submitBtn.textContent = 'Message envoyé !';
+            submitBtn.style.background = 'linear-gradient(135deg, #28a745 0%, #20b038 100%)';
+            
+            setTimeout(() => {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                submitBtn.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                this.reset();
+            }, 2000);
+        }, 1500);
+    });
+}
+
+// =============================================
+// Window Resize Optimization
+// =============================================
+let resizeTimer;
+window.addEventListener('resize', () => {
+    document.body.classList.add('resize-animation-stopper');
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+        document.body.classList.remove('resize-animation-stopper');
+    }, 400);
 });
 
-// Mobile menu toggle
-const mobileMenu = document.querySelector('.mobile-menu');
-const navLinks = document.querySelector('.nav-links');
-
-mobileMenu.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
-});
-
-// Typing effect for hero subtitle
-function typeWriter(element, text, speed = 100) {
+// =============================================
+// Typing Effect for Hero Subtitle
+// =============================================
+const typeWriter = (element, text, speed = 100) => {
+    if (!element) return;
+    
     let i = 0;
     element.innerHTML = '';
     
-    function type() {
+    const type = () => {
         if (i < text.length) {
             element.innerHTML += text.charAt(i);
             i++;
             setTimeout(type, speed);
         }
-    }
+    };
     type();
-}
+};
 
-// Initialize typing effect after page load
-window.addEventListener('load', () => {
-    const subtitle = document.querySelector('.hero .subtitle');
-    const originalText = subtitle.textContent;
-    setTimeout(() => {
-        typeWriter(subtitle, originalText, 50);
-    }, 1000);
-});
-
-// Skills animation on scroll
-function animateSkills() {
+// =============================================
+// Skills Animation
+// =============================================
+const animateSkills = () => {
     const skillTags = document.querySelectorAll('.skill-tag');
     skillTags.forEach((tag, index) => {
         setTimeout(() => {
             tag.style.animation = 'slideInUp 0.5s ease forwards';
         }, index * 100);
     });
-}
+};
 
 // Add CSS for skill animation
 const skillStyle = document.createElement('style');
@@ -342,10 +410,37 @@ document.querySelectorAll('.skill-category').forEach(category => {
         tag.style.animationDelay = `${index * 0.1}s`;
     });
 });
-// Animation supplémentaire pour les cercles
-document.addEventListener('DOMContentLoaded', () => {
+
+// =============================================
+// Circle Animation
+// =============================================
+const animateCircles = () => {
     const circles = document.querySelectorAll('.circle-layer');
     circles.forEach((circle, index) => {
         circle.style.transform = `rotate(${index * 45}deg)`;
     });
+};
+
+// =============================================
+// Initialize All Functions on Load
+// =============================================
+window.addEventListener('load', () => {
+    // Typing effect
+    const subtitle = document.querySelector('.hero .subtitle');
+    if (subtitle) {
+        const originalText = subtitle.textContent;
+        setTimeout(() => {
+            typeWriter(subtitle, originalText, 50);
+        }, 1000);
+    }
+    
+    // Initialize mobile menu
+    initMobileMenu();
+    
+    // Animate circles
+    animateCircles();
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    animateCircles();
 });
