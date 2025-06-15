@@ -37,6 +37,61 @@ const observer = new IntersectionObserver((entries) => {
 document.querySelectorAll('.fade-in').forEach(el => {
     observer.observe(el);
 });
+// =============================================
+// Particle Animation for Hero Section
+// =============================================
+const createParticles = () => {
+    const hero = document.querySelector('.hero');
+    if (!hero) return;
+    
+    // Clear existing particles
+    document.querySelectorAll('.particle').forEach(p => p.remove());
+    
+    // Create particles based on screen size
+    const particleCount = window.innerWidth < 768 ? 8 : 15;
+    
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        
+        // Random size between 2px and 6px (smaller on mobile)
+        const size = window.innerWidth < 768 ? 
+            Math.random() * 2 + 1 : 
+            Math.random() * 4 + 2;
+            
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        
+        // Random position
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.bottom = `-10px`;
+        
+        // Random opacity
+        particle.style.opacity = Math.random() * 0.5 + 0.3;
+        
+        // Animation with random duration and delay
+        particle.style.animationDuration = `${Math.random() * 10 + 10}s`;
+        particle.style.animationDelay = `${Math.random() * 5}s`;
+        
+        hero.appendChild(particle);
+    }
+    
+    // Recreate particles on resize (with debounce)
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(createParticles, 250);
+    });
+};
+
+// In the window.addEventListener('load', ...)
+window.addEventListener('load', () => {
+    // Existing code...
+    createParticles();
+});
+
+// Initialize particles on DOM ready as well
+document.addEventListener('DOMContentLoaded', createParticles);
 
 // =============================================
 // Navigation Effects

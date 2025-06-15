@@ -90,7 +90,7 @@ body {
 
 
 /* Hero Section */
-
+/* Hero Section - Updated with animated background */
 .hero {
     height: 100vh;
     background: linear-gradient(135deg, #9370DB, #8A7FD6, #B19CD9, #C8A6E0);
@@ -101,9 +101,14 @@ body {
     position: relative;
     overflow: hidden;
     padding: 0 2rem;
-    /* Background animation properties */
     animation: gradientShift 15s ease infinite;
     background-size: 300% 300%;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 .hero::before {
@@ -117,6 +122,66 @@ body {
         radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.3) 0%, transparent 30%),
         radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.3) 0%, transparent 30%);
     z-index: 1;
+    animation: float 25s infinite linear;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="rgba(255,255,255,0.05)" d="M0,0 L100,0 L100,100 L0,100 Z" /><path fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5" d="M0,50 Q25,25 50,50 T100,50" /></svg>');
+    z-index: 1;
+    animation: wave 20s infinite linear;
+}
+
+@keyframes float {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(-5%, 5%); }
+    50% { transform: translate(-10%, 0); }
+    75% { transform: translate(-5%, -5%); }
+    100% { transform: translate(0, 0); }
+}
+
+@keyframes wave {
+    0% { background-position: 0 0; }
+    100% { background-position: 100% 0; }
+}
+
+.particle {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    animation: floatParticle 15s infinite linear;
+    z-index: 1;
+}
+
+@keyframes floatParticle {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+}
+
+/* Responsive adjustments for particles */
+@media (max-width: 768px) {
+    .particle {
+        animation-duration: 20s !important; /* Slower on mobile */
+    }
+    
+    .hero::before, 
+    .hero::after {
+        animation-duration: 35s !important; /* Slower animations on mobile */
+    }
+}
+
+@media (max-width: 480px) {
+    .particle {
+        display: none; /* Remove particles on very small screens */
+    }
 }
 
 .hero-container {
@@ -163,91 +228,6 @@ body {
 }
 
 
-/* Nouvelle animation cyber */
-.cyber-circle {
-    position: relative;
-    width: 300px;
-    height: 300px;
-    margin: 0 auto;
-}
-
-.circle-layer {
-    position: absolute;
-    border-radius: 50%;
-    border: 2px solid rgba(255,255,255,0.2);
-    animation: rotate infinite linear;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-}
-
-.circle-layer:nth-child(1) {
-    border-color: rgba(255,255,255,0.4);
-    animation-duration: 20s;
-    animation-delay: 0s;
-}
-
-.circle-layer:nth-child(2) {
-    border-color: rgba(255,255,255,0.3);
-    animation-duration: 25s;
-    animation-delay: -5s;
-    transform: rotate(45deg);
-}
-
-.circle-layer:nth-child(3) {
-    border-color: rgba(255,255,255,0.2);
-    animation-duration: 30s;
-    animation-delay: -10s;
-    transform: rotate(15deg);
-}
-
-.cyber-center {
-    position: absolute;
-    width: 100px;
-    height: 100px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.hexagon {
-    width: 60px;
-    height: 60px;
-    background: rgba(255,255,255,0.8);
-    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-    animation: pulse 2s ease infinite alternate;
-}
-
-@keyframes rotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-@keyframes pulse {
-    from { transform: scale(1); opacity: 0.8; }
-    to { transform: scale(1.1); opacity: 1; }
-}
-
-@media (max-width: 768px) {
-    .cyber-circle {
-        width: 200px;
-        height: 200px;
-    }
-    
-    .cyber-center {
-        width: 80px;
-        height: 80px;
-    }
-    
-    .hexagon {
-        width: 40px;
-        height: 40px;
-    }
-}
 
 .hero-subtitle {
     font-size: 1.3rem;
