@@ -69,49 +69,49 @@ window.addEventListener('scroll', () => {
 const projectsData = {
     mockup: {
         title: "University Student Portal ",
-        image: "mockup1.jpg",
+        image: "image/mockup1.jpg",
         description: "The project is a student companion app that centralizes schedules, grades, announcements, and personal info. It includes an AI chatbot for quick university-related answers. ",
         figmaUrl: "https://www.figma.com/design/nRN3XfEvfb6uGREyRooLm0/pentadesigners?node-id=0-1&t=NU15K6q2PxOJU9P8-1"
     },
     neuron: {
         title: "Neuron website",
-        image: "neuron.jpg",
+        image: "image/neuron.jpg",
         description: "Neuron, a medical practice management platform, needed a web redesign to improve accessibility and workflow for doctors and assistants.",
         figmaUrl: "https://www.figma.com/design/XvIFgYifVwj8e03BWLUH6h/Challenge-3?node-id=0-1&p=f&t=CztxVjoHSv2wwF7I-0"
     },
     book: {
         title: "Yume hon",
-        image: "book.jpg",
+        image: "image/book.jpg",
         description: "This AR/VR app transforms books into immersive experiences with a 3D library, narration, and AI-powered interactions.It includes social features.",
         figmaUrl: "hhttps://www.figma.com/design/nRN3XfEvfb6uGREyRooLm0/pentadesigners?node-id=183-3212&t=NU15K6q2PxOJU9P8-1"
     },
     hanoi: {
         title: " Hanoi Game",
-        image: "hanoi.jpg",
+        image: "image/hanoi.jpg",
         description: "This is a colorful puzzle game inspired by the classic Tower of Hanoi, set in a vibrant world themed around the Indian festival of Holi.",
         figmaUrl: "https://www.figma.com/design/1wNl0xeUvGImWv3KOtSn0v/HANOI?node-id=0-1&t=GUabQ8SbFPKmx6pQ-1"
     },
     assirem: {
         title: " Assirem app ",
-        image: "assirem.jpg",
+        image: "image/assirem.jpg",
         description: "Assirem is a mobile app that connects volunteers with associations to foster mutual support and social engagement.",
         figmaUrl: "https://www.figma.com/design/hV5uLEkGe4EdV7dhMxUqDt/ASIREM-FONDATION?node-id=0-1&t=kcOFSPh487uivGXn-1"
     },
     vamos: {
         title: " Vamos website",
-        image: "vamos.jpg",
+        image: "image/vamos.jpg",
         description: "Vamos is a travel website that helps users discover and book top destinations for their next vacation.With a clean and vibrant interface",
         figmaUrl: "https://www.figma.com/design/wm1LdqI8qX7tJMatKRzhTT/Vamos-site?node-id=0-1&t=DGrbD1idJlJuKPlp-1"
     },
     logo10: {
         title: "Logos collections",
-        image: "logo10.jpg",
+        image: "image/logo10.jpg",
         description: "stylish showcase of modern logo designs featuring various brands.The designs demonstrate a professional branding aesthetics across different industries.",
         figmaUrl: "https://www.figma.com/file/votre-lien-logo10"
     },
     cartevisite: {
         title: "business card ",
-        image: "cartevisite.jpg",
+        image: "image/cartevisite.jpg",
         description: "A collection of business card designs for Algerian businesses, showcasing a variety of styles and branding approaches.",
         figmaUrl: "https://www.figma.com/file/votre-lien-cartevisite"
     }
@@ -136,6 +136,107 @@ function closeModal() {
     setTimeout(() => modal.style.display = 'none', 300);
 }
 
+// Certifications Modal Data
+const certsData = {
+    design: {
+        title: "Graphic Design Certification",
+        images: ["image/graphic1.jpg", "image/graphic2.jpg", "image/graphic3.jpg"],
+        description: "Comprehensive graphic design certification covering Adobe tools and visual design principles."
+    },
+    tech: {
+        title: "Tech Conference Participation",
+        images: ["image/techconference.jpg"],
+        description: "Active participation in tech conferences on cybersecurity and digital innovation."
+    },
+    hackathon: {
+        title: "Experia Hackathon Participation",
+        images: ["image/experia.jpg"],
+        description: "Participated in the Experia Design Hackathon — ranked 3rd out of 35 participants."
+    },
+    hackathon2: {
+        title: "Holllow dev Hackathon Participation",
+        images: ["image/hachaton1.jpg"],
+        description: "Collaborated in a 48-hour development hackathon, building an innovative web application."
+    },
+    ideathon: {
+        title: "Creative Ideathon Participation",
+        images: ["image/ideathon.jpg"],
+        description: "Contributed creative solutions and pitched ideas for digital transformation."
+    }
+};
+
+function openCertModal(certKey) {
+    const cert = certsData[certKey];
+    const modal = document.getElementById('certModal');
+    
+    document.getElementById('cert-modal-title').textContent = cert.title;
+    
+    const modalBody = document.querySelector('#certModal .modal-body');
+    modalBody.innerHTML = `
+        <div class="cert-images-container"></div>
+        ${cert.images.length > 1 ? `
+            <button class="cert-nav cert-prev">❮</button>
+            <button class="cert-nav cert-next">❯</button>
+        ` : ''}
+    `;
+    
+    const imagesContainer = modalBody.querySelector('.cert-images-container');
+    let currentIndex = 0;
+    
+    function showImage(index) {
+        imagesContainer.innerHTML = '';
+        const imgContainer = document.createElement('div');
+        imgContainer.className = 'cert-image-container';
+        
+        const img = document.createElement('img');
+        img.src = cert.images[index];
+        img.className = 'cert-image';
+        img.alt = cert.title;
+        
+        imgContainer.appendChild(img);
+        imagesContainer.appendChild(imgContainer);
+    }
+    
+    // Show first image
+    showImage(0);
+    
+    // Navigation handlers
+    if (cert.images.length > 1) {
+        document.querySelector('.cert-prev').addEventListener('click', (e) => {
+            e.stopPropagation();
+            currentIndex = (currentIndex - 1 + cert.images.length) % cert.images.length;
+            showImage(currentIndex);
+        });
+        
+        document.querySelector('.cert-next').addEventListener('click', (e) => {
+            e.stopPropagation();
+            currentIndex = (currentIndex + 1) % cert.images.length;
+            showImage(currentIndex);
+        });
+    }
+    
+    modal.style.display = 'block';
+    setTimeout(() => modal.classList.add('show'), 50);
+}
+
+function closeCertModal() {
+    const modal = document.getElementById('certModal');
+    modal.classList.remove('show');
+    setTimeout(() => modal.style.display = 'none', 300);
+}
+
+// Fermer la modal en cliquant à l'extérieur
+window.onclick = function(event) {
+    const modal = document.getElementById('certModal');
+    if (event.target === modal) {
+        closeCertModal();
+    }
+    
+    const projectModal = document.getElementById('projectModal');
+    if (event.target === projectModal) {
+        closeModal();
+    }
+}
 // Fermer la modal en cliquant à l'extérieur
 window.onclick = function(event) {
     const modal = document.getElementById('projectModal');
